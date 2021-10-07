@@ -1,0 +1,50 @@
+#include <iostream>
+using namespace std;
+int Fipolacci (int n);
+int Fipolacci (int n)
+{
+	if(n==0) {return 1; 
+	}
+	if(n==1) {return 1;
+	}
+	return Fipolacci(n-1)+Fipolacci(n-2); 
+}
+int main()
+{
+	int n;
+	cin>>n;
+	cout<<"第"<<n+1<<"个斐波拉契数是："<<endl; 
+	cout<<Fipolacci(n)<<endl;
+	return 0;
+} //递归
+
+
+
+#include <iostream>
+using namespace std;
+int Fipolacci (int n);
+int Fipolacci (int n)
+{
+	if(n==0) {return 1; 
+	}
+	if(n==1) {return 1;
+	}
+	int pre = 1;
+	int prePre = 1;
+	int result = 0;
+	for ( int num = 2;num<=n;num++)
+	{
+		result = pre + prePre;
+		pre = prePre;
+		prePre = result;
+	}
+	return result;
+}
+int main()
+{
+	int n;
+	cin>>n;
+	cout<<"第"<<n+1<<"个斐波拉契数是："<<endl; 
+	cout<<Fipolacci(n)<<endl;
+	return 0;
+} //递推
