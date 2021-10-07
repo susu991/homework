@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <string.h>
+#define N 100
+int fun(char *str)
+{
+	char *head,*tail;
+	head=str,tail=&str[strlen(str)-1];
+	while(head<tail&&(*head==*tail))
+	{
+		head++;
+		tail--;
+	}
+	if(head>=tail) 
+	{
+		return 1;
+	}
+	else 
+	    return 0;
+}
+int main()
+{
+	char s[N];
+	printf("请输入你想判断的字符串：");
+	gets(s);
+	printf("\n\n");
+	if(fun(s))
+	{
+		printf("该字符串是回文");
+	}
+	else
+	    printf("该字符串不是回文");
+	    
+	return 0;
+ } //递归
+ 
+ #include <stdio.h>
+#include <string.h>
+#define N 100
+int main()
+{
+	char a[N];
+	printf("请输入你想判断的字符串：");
+	gets(a);
+	printf("\n"); 
+	int head = 0;
+	int tail=strlen(a)-1;
+	while(head < tail)
+	{
+		if( a[head]!= a[tail])
+		{
+		   printf("该字符串不是回文");
+		   head++;
+		   tail--;
+	    }
+	    else
+	       printf("该字符串是回文");break;
+	}
+	return 0;
+ } //递推
+ 
