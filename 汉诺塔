@@ -1,0 +1,25 @@
+#include<iostream>
+#include <string.h>
+using namespace std;
+void moveover(int number, string initial, string trail )
+{
+	cout<<"移动第"<<number<<"个从"<<initial<<"到"<<trail<<endl; 
+}
+void move(int numbers, string initail, string middle, string trail)
+{
+	if(numbers == 1)
+	{
+		moveover(1,initail,trail);
+	 } 
+	else
+	{
+		move(numbers-1,initail,trail,middle);//将numbers-1个通过trail从initail移动到middle 
+		moveover(numbers, initail, trail);//将第numbers个从initail移动到trail 
+		move(numbers-1, middle, initail, trail);//将numbers-1个通过initail从middle移动到trail 
+	}
+}
+int main()
+{
+	move(3,"A","B","C");
+	return 0;
+}
