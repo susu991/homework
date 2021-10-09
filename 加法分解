@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include <string.h>
+int putin;
+void differ(int n,int num,int* p);
+ void same(int n,int num,int* p);
+int main(int argc, char** argv) {
+	int n;
+	int m;
+
+	scanf("%d,%d",&n,&m);
+	putin = n;
+	int* p = new int[n];
+	if(m == 1)
+	  differ(n,0,p);
+	if(m == 2)
+	  same(n,0,p);
+    delete p;
+	return 0;
+}
+
+void differ(int n,int num,int* p)
+{
+	
+	if(n==0)
+	{
+		printf("%d = ", putin);
+		for(int i = 0;i<num;i++)
+		   if(i == num - 1 )
+		      printf("%d\n",p[i]);
+		    else
+		       printf("%d + ",p[i]);
+	}
+	for (int i = 1;i<=n;i++)
+	{
+		p[num] = i;
+		differ(n-i,num + 1,p);
+	}
+ } 
+ void same(int n,int num,int* p)
+ {
+ 		
+	if(n==0)
+	{
+		printf("%d = ", putin);
+		for(int i = 0;i<num;i++)
+		   if(i == num - 1 )
+		      printf("%d\n",p[i]);
+		    else
+		       printf("%d + ",p[i]);
+	}
+	int k = num>0?p[num-1]:1;
+	for (int i = k;i<=n;i++)
+	{
+		p[num] = i;
+		same(n-i,num + 1,p);
+	}
+ } 
+
