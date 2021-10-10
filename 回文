@@ -23,15 +23,16 @@ int main()
 	printf("请输入你想判断的字符串：");
 	gets(s);
 	printf("\n\n");
+	printf("%s",s);
 	if(fun(s))
 	{
-		printf("该字符串是回文");
+		printf("是回文");
 	}
 	else
-	    printf("该字符串不是回文");
+	    printf("不是回文");
 	    
 	return 0;
- } //递归
+ } 
  
  #include <stdio.h>
 #include <string.h>
@@ -44,16 +45,17 @@ int main()
 	printf("\n"); 
 	int head = 0;
 	int tail=strlen(a)-1;
+	printf("%s",a);
 	while(head < tail)
 	{
 		if( a[head]!= a[tail])
 		{
-		   printf("该字符串不是回文");
+		   printf("不是回文");
 		   head++;
 		   tail--;
 	    }
 	    else
-	       printf("该字符串是回文");break;
+	       printf("是回文");break;
 	}
 	return 0;
  } //递推
