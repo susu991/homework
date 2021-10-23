@@ -1,0 +1,50 @@
+#include<stdio.h>
+ void quick(int arr[],int n)
+{
+	int key = arr[0];//把第一个数当作中间数
+	int left = 0;//左边的底数从0开始
+	int right = n-1;//右边从n-1
+	int R,L;
+	int move = R;//当move==R时，从右边开始比较
+	if(n<2) return;//当数组数小于2时，则原数输出
+	while(right>left)
+	{
+		if(move==R)
+		{
+			if(arr[right]>key)
+			{
+				right--;continue;//若右边的数比指定数大，则不动，right指向前一个
+			}
+			else
+			arr[left]=arr[right];//否则将该数放到左边
+			left++;//左边的下标向右移
+			move = L;//换成左边的数比较
+			continue;
+		}
+		if(move==L)
+		{
+			if(arr[left]<key)
+			{
+				left++;continue;//左边数比指定数小时，不动，left指向下一个
+			}
+			else
+			arr[right]=arr[left];//否则将该数放到右边
+			right--;//向左移
+			move=R;//换成右边比较
+			continue;
+		}
+	}
+	arr[left]=key;//如果left与right重合了，而将指定数放到重合位置
+	quick(arr,left);//将指定数左边的数继续该操作
+	quick(arr+left+1,n-left-1);//将指定数右边的数继续同样的操作
+ } 
+ int main()
+ {
+ 	int arr[]={1,8,5,6,4,2};
+ 	quick(arr,6);
+ 	for(int i = 0;i < 6;i++)
+ 	{
+ 		printf("%d ",arr[i]);
+	 }
+	 return 0;
+ }
