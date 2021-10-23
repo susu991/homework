@@ -1,0 +1,94 @@
+#include <iostream>
+#include <math.h>
+
+using namespace std;
+
+bool selectSort(int array[], size_t arrLen) {
+    if (arrLen < 0) {
+        cout << "Please check your input." << endl;//如果输入的数组的元素小于0，则显示检查输入
+        return false;
+    }
+
+
+    for (int orderedNum = 0; orderedNum < arrLen; ++orderedNum) {
+        int minIndex = orderedNum;//将数组中的第一个数先作为最小的数，记住它的下标 
+        for (int i = orderedNum + 1; i < arrLen; ++i) {
+            if (array[i] < array[minIndex]) {//让后面的数与之对比，然后记住最小的数的下标 
+                minIndex = i;
+            }
+        }
+
+        if (minIndex != orderedNum){//比较数的大小且需要交换的进行交换 
+            int temp = array[orderedNum];
+            array[orderedNum] = array[minIndex];
+            array[minIndex] = temp;
+        }
+    }
+    return true;
+}
+
+
+//将排好序的元素输出
+void printArray(int array[], int arrLen) {
+    for (int i = 0; i < arrLen; ++i) {
+        cout << array[i] << " ";
+    }
+    cout << endl;
+}
+
+int main(){
+    int array0[] = {};
+    int arrayLen = sizeof(array0)/sizeof(int);//得到输入数组里元素的个数，类似于n的存在 
+
+    printArray(array0, arrayLen);
+    selectSort(array0, arrayLen);
+    printArray(array0, arrayLen);
+
+    cout << "=========================================" << endl;
+
+    int array1[] = {1};
+    arrayLen = sizeof(array1)/sizeof(int);
+
+    printArray(array1, arrayLen);
+    selectSort(array1, arrayLen);
+    printArray(array1, arrayLen);
+
+    cout << "=========================================" << endl;
+
+    int array2[] = {2, 1};
+    arrayLen = sizeof(array2)/sizeof(int);
+
+    printArray(array2, arrayLen);
+    selectSort(array2, arrayLen);
+    printArray(array2, arrayLen);
+
+    cout << "=========================================" << endl;
+
+    int array3[] = {1, 5, 3};
+    arrayLen = sizeof(array3)/sizeof(int);
+
+    printArray(array3, arrayLen);
+    selectSort(array3, arrayLen);
+    printArray(array3, arrayLen);
+
+
+    cout << "=========================================" << endl;
+
+    int array4[] = {9, 12, 8, 7};
+    arrayLen = sizeof(array4)/sizeof(int);
+
+    printArray(array4, arrayLen);
+    selectSort(array4, arrayLen);
+    printArray(array4, arrayLen);
+
+    cout << "=========================================" << endl;
+
+    int array5[] = {9, 12, 8, 7, 3};
+    arrayLen = sizeof(array5)/sizeof(int);
+
+    printArray(array5, arrayLen);
+    selectSort(array5, arrayLen);
+    printArray(array5, arrayLen);
+
+
+}
