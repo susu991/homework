@@ -1,0 +1,209 @@
+#include <iostream>
+#include <math.h>
+
+using namespace std;
+
+bool merge(int array[], size_t arrStart, size_t arrMiddle, size_t arrEnd) {
+    int arrLen = arrEnd - arrStart;
+    if (arrLen < 2) {
+        cout << "Please check your implementation." << endl;
+        return false;
+    }
+
+    int *temp = new int(arrLen);//定义一个新的空间大小为arrlen的数组 
+    int i = arrStart;//为左半区域的第一个数的下标 
+    int j = arrMiddle;//为右半区域的第一个数的下标 
+    int tempIndex = 0;//数组第一个位置的下标为0 
+
+    while (i < arrMiddle && j < arrEnd) {
+        if (array[i] > array[j]) {//当左半区域的第一个数大于右半区域的第一个数时 
+            temp[tempIndex] = array[j];//将右半区域的的第一个数放到新建数组空间的第一个 
+            ++j;//右半区域下标右移 
+        }
+        else {
+            temp[tempIndex] = array[i];//否则将左半区域的第一个数当到新建数组空间的第一个 
+            ++i;//左半区域下标右移 
+        }
+        ++tempIndex;//新建数组的下标当放入数据后也要右移 
+    }
+
+    while (i < arrMiddle) {// 若只剩下左半区域的数没有插入，则将剩余数全部插入
+        temp[tempIndex++] = array[i++];
+    }
+
+    while (j < arrEnd) {//若只剩下右半区域的数没有插入，则将剩余数全部插入
+        temp[tempIndex++] = array[j++];
+    }
+
+    for ((tempIndex = 0, i = arrStart); (tempIndex < arrLen && i < arrEnd); (++tempIndex, ++i)) {
+        array[i] = temp[tempIndex];//将放到新数组的已经排好顺序的数按顺序当到原数组中 
+    }
+
+    delete []temp;//释放掉该空间 
+    temp = NULL;
+
+    return true;
+}
+bool mergeSort(int array[], size_t arrStart, size_t arrEnd) {
+    int arrLen = arrEnd - arrStart;
+    if (arrLen < 0) {
+        cout << "Please check your input." << endl;//数组中的元素小于0个的时候 
+        return false;
+    }
+
+    if (arrLen == 0 || arrLen == 1) {//数组中的元素等于0个或1个的时候原样输出 
+        return true;
+    } 
+
+    int middle = arrStart + floor(arrLen / 2); //找到下标的中点位置 
+    mergeSort(array, arrStart, middle);//中点的左边继续分开 直至分开成一个 
+    mergeSort(array, middle, arrEnd);//中点的右边也继续分开直至分开成一个 
+    return merge(array, arrStart, middle, arrEnd);//合并 
+}
+//将排好序的元素输出
+void printArray(int array[], int arrLen) {
+    for (int i = 0; i < arrLen; ++i) {
+        cout << array[i] << " ";
+    }
+    cout << endl;
+}
+
+int main(){
+    int array0[] = {};
+    int arrayLen = sizeof(array0)/sizeof(int);//得到输入数组里元素的个数，类似于n的存在
+
+    printArray(array0, arrayLen);
+    mergeSort(array0, 0, arrayLen);
+    printArray(array0, arrayLen);
+
+    cout << "=========================================" << endl;
+
+    int array1[] = {1};
+    arrayLen = sizeof(array1)/sizeof(int);
+
+    printArray(array1, arrayLen);
+    mergeSort(array1, 0, arrayLen);
+    printArray(array1, arrayLen);
+
+    cout << "=========================================" << endl;
+
+    int array2[] = {2, 1};
+    arrayLen = sizeof(array2)/sizeof(int);
+
+    printArray(array2, arrayLen);
+    mergeSort(array2, 0, arrayLen);
+    printArray(array2, arrayLen);
+
+    cout << "=========================================" << endl;
+
+    int array3[] = {1, 5, 3};
+    arrayLen = sizeof(array3)/sizeof(int);
+
+    printArray(array3, arrayLen);
+    mergeSort(array3, 0, arrayLen);
+    printArray(array3, arrayLen);
+
+
+    cout << "=========================================" << endl;
+
+    int array4[] = {9, 12, 8, 7};
+    arrayLen = sizeof(array4)/sizeof(int);
+
+    printArray(array4, arrayLen);
+    mergeSort(array4, 0, arrayLen);
+    printArray(array4, arrayLen);
+
+    cout << "=========================================" << endl;
+
+    int array5[] = {9, 12, 8, 7, 3};
+    arrayLen = sizeof(array5)/sizeof(int);
+
+    printArray(array5, arrayLen);
+    mergeSort(array5, 0, arrayLen);
+    printArray(array5, arrayLen);
+
+
+}
+
+
+
+
+
+
+
+#include <stdio.h>
+#include <malloc.h>
+//合并 
+void merge(int arr[],int Arr[],int left,int mid,int right)
+{
+	//标记左半区域的第一个数的下标
+	int Larr = left;
+	//标记右半区域的第一个数的下标
+	int Rarr = mid+1;
+	//标记放置数组的第一个下标
+	int put = left;
+	//合并
+	while(Larr<=mid&&Rarr<=right)
+	{
+		if(arr[Larr]<arr[Rarr])//左半区域第一个数小于右半区域第一个数 
+		  Arr[put++]=arr[Larr++];
+		else
+		  Arr[put++]=arr[Rarr++];//右半区域第一个数小于左半区域第一个数 
+	} 
+	while(Larr<=mid)//若只剩下左半区域的数没有插入，则将剩余数全部插入 
+	{
+	 	Arr[put++]=arr[Larr++];
+	} 
+	while(Rarr<=right)//若只剩下右半区域的数没有插入，则将剩余数全部插入 
+	{
+		Arr[put++]=arr[Rarr++];
+	} 
+	//把合并好的数复制到原来的数组中
+	while(left<=right) 
+	{
+		arr[left]=Arr[left];
+		left++;
+	}
+	
+}
+//分开 
+void apart(int arr[],int Arr[],int left,int right)
+{
+	if(left<right)//当数组里的元素大于1时，进行分离 
+	{
+	   //找到中间下标分成左右两区域
+       int mid = (left + right)/2;
+       //继续分离左半区域
+       apart(arr,Arr,left,mid);
+       //继续分离右半区域
+       apart(arr,Arr,mid+1,right);
+       //合并分开的各组数 
+       merge(arr,Arr,left,mid,right); 
+	}
+   
+}
+void mergeSort(int arr[],int n)
+{
+	//申请一个先放置数组数据的空间
+	int *Arr = (int *)malloc(n * sizeof(int));
+	if(Arr)
+	{
+		apart(arr,Arr,0,n-1);//进入分离
+		free(Arr);//释放掉这个备用空间 
+        
+	 } 
+	 else
+	   printf("错误！");
+}
+int main()
+{
+	int arr[6]={1,8,5,6,4,2};
+ 	
+ 	mergeSort(arr,6);//去申请空间 
+ 	for(int i = 0;i < 6;i++)
+ 	{
+ 		printf("%d ",arr[i]);
+	 }
+ 	
+ 	return 0; 
+ }
